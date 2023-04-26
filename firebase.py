@@ -71,25 +71,6 @@ class Firebase:
                 return requests.get(self.base_url+"/"+endpoint+self.auth_token).json()
             else:
                 return requests.get(self.base_url+"/"+endpoint+".json"+self.auth_token).json()
-      
-    def upload(self, location, file_path):
-        if self.domain:
-            url = "https://{}.pythonanywhere.com/upload".format(self.domain)
-            files = {'file': open(file_path, 'rb')}
-            data = {'path': location, 'key': self.apikey}
-            response = requests.post(url, files=files, data=data).json()
-            return response
-        else:
-            return "Please Enter Domain URL"
-
-    def delete_file(self, location):
-        url = "https://{}.pythonanywhere.com/delete".format(self.domain)
-        data = {'path': location, 'key': self.apikey}
-        response = requests.post(url, data=data)
-        if response.ok:
-            return True
-        else:
-            return response.json()
 
 class Storage:
     def __init__(self, data):
