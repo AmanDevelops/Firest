@@ -1,7 +1,5 @@
 import os
 import requests
-from cloudinary.uploader import upload
-import cloudinary
 
 class Firebase:
     def __init__(self, projectid, authtoken, domain=False):
@@ -71,13 +69,3 @@ class Firebase:
                 return requests.get(self.base_url+"/"+endpoint+self.auth_token).json()
             else:
                 return requests.get(self.base_url+"/"+endpoint+".json"+self.auth_token).json()
-
-class Storage:
-    def __init__(self, data):
-        self.data = data
-
-    def Upload(self,filename,folder):
-        nfolder = folder if folder[-1] == "/" else folder+"/"
-        cloudinary.config(cloud_name=self.data["name"],api_key=self.data["api"],api_secret=self.data["secret"],secure=True)
-        data = upload(filename,public_id=os.path.basename(filename),folder=nfolder)
-        return data["secure_url"]
